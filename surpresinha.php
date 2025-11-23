@@ -81,12 +81,12 @@
             if(!in_array($dezenaSorteada, $sorteados)){
                 $sorteados[] = $dezenaSorteada;
             }
-            
+
         }
 
         sort($sorteados);
         
-        print_r($sorteados);
+        print implode(", ", $sorteados);
 
     }
 
