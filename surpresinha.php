@@ -4,6 +4,9 @@
 
 //oq precisa: num minimo; num maximo; valores; universo (mega sena 1 a 60)
 
+//faltando preços (parte do Christopher) -> VS Code dele não está funcionado
+//faltando se digitar valor invalido para quantidade de jogos (parte da Giovana)
+
     function menu(): void{
 
         $continuar = true;
