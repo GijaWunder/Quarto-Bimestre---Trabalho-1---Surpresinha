@@ -1,24 +1,18 @@
 <?php
 
-//lottoland
-
-//oq precisa: num minimo; num maximo; valores; universo (mega sena 1 a 60)
-
-//faltando preços (parte do Christopher) -> VS Code dele não está funcionado
-//faltando se digitar valor invalido para quantidade de jogos (parte da Giovana)
-
     function menu(): void{
 
         $continuar = true;
 
+
         do{
 
             print("\033[37;44mEscolha uma loteria:\033[0m\n");
-            print("0- Sair\n");
             print("1- Mega Sena\n");
             print("2- Quina\n");
             print("3- Lotofácil\n");
             print("4- Lotomania\n");
+            print("5- Sair\n");
 
             $opcao = trim(readline());
 
@@ -47,7 +41,7 @@
 
                     break;
 
-                case "0";
+                case "5";
                     print("Você escolheu sair.\n\n");
                     $continuar = false;
                     break;
@@ -68,31 +62,31 @@
     function megaSena(): void{
 
         $quantidadeJogos = readline("Quantos jogos deseja?\n");
-        jogos($quantidadeJogos, 6, 20, 1, 60);
+        valorInvalidoJogo($quantidadeJogos, 6, 20, 1, 60);
 
     }
+   
 
     function quina(): void{
 
         $quantidadeJogos = readline("Quantos jogos deseja?\n");
-        jogos($quantidadeJogos, 5, 15, 1, 80);
+        valorInvalidoJogo($quantidadeJogos, 5, 15, 1, 80);
 
     }
 
     function lotofacil(): void{
 
         $quantidadeJogos = readline("Quantos jogos deseja?\n");
-        jogos($quantidadeJogos, 15, 20, 1, 25);
+        valorInvalidoJogo($quantidadeJogos, 15, 20, 1, 25);
 
     }
 
     function lotomania(){
 
-        $quantidadeDezena = 50;
         print("Nesta loteria a quantidade de dezenas é fixa em 50 dezenas.\n");
         $quantidadeJogos = readline("Quantos jogos deseja?\n");
-        jogosLotomania($quantidadeJogos, 50, 0, 99);
-        
+        LotomaniaValorInvalido($quantidadeJogos);
+
     }
 
     function sorteio($minimo, $maximo, $quantidadeDezena){
@@ -140,14 +134,36 @@
             $quantidadeDezena = (int) readline('Quantas dezenas deseja para o jogo ' . $i + 1 . "? \n");
             minimoEmaximo($quantidadeDezena, $minimoDezena, $maximoDezena, $minimoUniverso, $maximoUniverso);
             print("\n\n");
+
         }
+
     }
 
-    function jogosLotomania($quantidadeJogos, $quantidadeDezena, $minimoUniverso, $maximoUniverso){
+    function jogosLotomania($quantidadeJogos){
         for ($i=0; $i < $quantidadeJogos; $i++) {
             print('Jogo ' . $i + 1 . ": \n");
             sorteio(0, 99, 50);
             print("\n\n");
         }
         
+    }
+
+    function valorInvalidoJogo($quantidadeJogos, $minimoDezena, $maximoDezena, $minimoUniverso, $maximoUniverso){
+        if ($quantidadeJogos < 1) {
+            while ($quantidadeJogos < 1){
+            $quantidadeJogos = (int) readline("Valor inválido! Digite novamente: \n");
+            jogos($quantidadeJogos, $minimoDezena, $maximoDezena, $minimoUniverso, $maximoUniverso);
+        }
+        }else{
+            jogos($quantidadeJogos, $minimoDezena, $maximoDezena, $minimoUniverso, $maximoUniverso);
+
+        }
+    }
+
+    function LotomaniaValorInvalido($quantidadeJogos){
+        while ($quantidadeJogos < 1) {
+            $quantidadeJogos = (int) readline("Valor inválido! Digite novamente: \n");
+            jogosLotomania($quantidadeJogos);
+        }
+
     }
